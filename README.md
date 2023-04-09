@@ -9,7 +9,7 @@ This library is far from done and still might have bugs and incomplete stuff. An
 1. Download the file, or use the cdn
 
 ```
-<script src="dash.js></script>
+<script src="https://dashjs.netlify.app/dash.js"></script>
 ```
 
 2. Initializing Dash
