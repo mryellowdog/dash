@@ -38,6 +38,22 @@ canvas.start();
 </script>
 ```
 
+# Stuff to know
+
+It is reccomended to use Dash's loops rather than a standard while true loop, here are the loops you can use,
+```
+canvas.forever = function () {
+   // Do something...
+};
+canvas.handleInput = function () {
+   // Do something...
+};
+canvas.checkCollisions = function () {
+   // Do something...
+};
+```
+All of the loops do the same thing, I just provided specific ones for certain scripts to make it easier to organize.
+
 # Adding sprites
 You can add sprites using Dash, here's basic examples:
 ```
@@ -57,6 +73,14 @@ canvas.addSprite(InsertSpriteName);
 ```
 
 # Functions
+
+## Logic
+
+### Random
+This function creates a random number between two integers,
+```
+random(1, 10);
+```
 
 ## Moving Sprites
 
@@ -138,13 +162,7 @@ player.setType("image")
 
 
 
-## Handle Input
-For these functions you should add handleInput:
-```
-canvas.handleInput = function () {
-  // Start coding here
-};
-```
+## Input
 
 ### Keyboard
 This function detects when the user presses certain keys on the keyboard
@@ -383,7 +401,32 @@ keys: Object
 name: "Canvas"
   </code>
   </details>
-  
+
+### Get FPS
+This function outputs the FPS into the console,
+```
+getFps();
+```
+Output:
+```
+60 
+```
+Note: This is the desired FPS already set. This does not reflect how the computer is actually processing the scripts.
+
+## Settings
+
+### FPS
+This setting allows you to set what FPS you desire. At the top of your script simply write,
+```
+fps = 60;
+```
+You can set it to any number. 60 is the default and is what I typically reccomend, but feel free to change it to whatever is best for your project.
+You can also use 'turbo'. This setting makes the project run as fast as possible, limiting screen refresh and making calculations as fast as possible.
+```
+turbo = true;
+```
+Make sure to not set Turbo and FPS in the same script or else they will cancel out.
+
 # Examples
 ## Infinite Runner Game Example,
 ```
