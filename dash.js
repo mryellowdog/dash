@@ -42,6 +42,11 @@ class Sprite {
   increaseY(dy) {
     this.y += dy;
   }
+  
+  
+  rotate(degrees) {
+    this.style.transform = 'rotate('+degrees+'deg)'; // Uses CSS to rotate
+  }
 
   isTouching(sprite) {
     const xOverlap =
