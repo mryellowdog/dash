@@ -1,3 +1,19 @@
+// General Functions and variables
+var fps = 60;
+var turbo = 10000000;
+
+function getFps() {
+  if (fps == 10000000) {
+    console.log("Turbo");
+  } else {
+    console.log(fps);
+  }
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 class Sprite {
   constructor(x, y, width, height, type, color, src) {
     this.x = x;
@@ -42,10 +58,55 @@ class Sprite {
   increaseY(dy) {
     this.y += dy;
   }
-  
-  
+
+  decreaseX(lx) {
+    this.x += lx;
+  }
+
+  decreaseY(ly) {
+    this.y += ly;
+  }
+
+  /*
   rotate(degrees) {
     this.style.transform = 'rotate('+degrees+'deg)'; // Uses CSS to rotate
+  }*/
+
+  //looks:
+  hide() {
+    this.style.visibility = "hidden";
+  }
+  show() {
+    this.style.visibility = "visible";
+  }
+  setSize(size) {
+    this.width = size;
+    this.height = size;
+  }
+  changeSize(sizetwo) {
+    this.width += sizetwo;
+    this.height += sizetwo;
+  }
+  setColor(thecolor) {
+    this.color = thecolor;
+  }
+  setImage(thesrc) {
+    this.src = thesrc;
+  }
+  setType(thetype) {
+    this.type = thetype;
+  }
+  setWidth(thewidth) {
+    this.width = thewidth;
+  }
+  changeWidth(thewidthtwo) {
+    this.width += thewidthtwo;
+  }
+  setHeight(theheight) {
+    this.height = theheight;
+  }
+  changeHeight(theheighttwo) {
+    this.height += theheighttwo;
   }
 
   isTouching(sprite) {
@@ -55,8 +116,11 @@ class Sprite {
       this.y + this.height >= sprite.y && this.y <= sprite.y + sprite.height;
     return xOverlap && yOverlap;
   }
-}
 
+  spriteInfo() {
+    console.log(this);
+  }
+}
 //onClick(sprite){
 //  if (event.clientX = sprite.x){
 //    if (event.clientY = sprite.y){
@@ -101,14 +165,19 @@ class Canvas {
     // Handle input here
   }
 
+  forever() {
+    // Run scripts forever on start
+  }
+
   start() {
     console.log("Initiated Dash");
-    console.log("Dash 0.1 / © Mryellowdog 2023");
+    console.log("Dash 0.2 / © Mryellowdog 2023");
     setInterval(() => {
+      this.forever();
       this.handleInput();
       this.checkCollisions();
       this.draw();
-    }, 1000 / 60);
+    }, 1000 / fps); // 60 is FPS
   }
 
   isKeyDown(key) {
@@ -117,6 +186,10 @@ class Canvas {
 
   isKeyUp(key) {
     return !this.keys[key];
+  }
+
+  info() {
+    console.log(this);
   }
 
   checkCollisions() {
