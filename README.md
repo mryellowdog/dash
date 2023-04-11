@@ -4,7 +4,7 @@ A simple JavaScript library for making 2D games
 # Note
 This library is far from done and still might have bugs and incomplete stuff. And it probably can't be used to create anything super advanced yet. I will probably try to finish this if I get the time, but feel free to modify code or create a pull request as you like.
 
-# Setting up Dash 0.1
+# Setting up Dash 0.2
 
 1. Download the file, or use the cdn
 
@@ -72,17 +72,71 @@ This function moves the sprite by a certain x and/or y value
 ```
 player.move(x, y);
 ```
-### Increase
-This function increases the x or y position of a sprite
+### Change X/Y
+This function increases or decreases the x or y position of a sprite
 ```
-player.increaseX(1);
-player.increaseY(1);
+player.changeX(1); // Increase the X by 1
+player.changeY(1); // Increase the Y by 1
+player.changeX(-1); // Decrease the X by 1
+player.changeY(-1); // Decrease the Y by 1
 ```
-You can also decrease x or y by using negative numbers.
+You can also still use increaseX/Y() or decreaseX/Y(), but I changed it to changeX/Y()
+
+## Editing Sprites
+
+Note: If you only want to set the looks of the sprite once, it might be easier to set it while creating and defining the sprite. See more in 'Adding Sprites'
+
+### Hide/Show
+This function allows you to hide or show the sprite:
 ```
-player.increaseX(-1);
-player.increaseY(-1);
+player.hide();
+player.show();
 ```
+
+### Size
+This function sets the size of your sprite (works best on squares)
+```
+player.setSize(100);
+```
+You can also use changeSize() to increase or decrease the size of the sprite,
+```
+player.changeSize(10); // Increase the size by ten
+player.changeSize(-10); // Decrease the size by ten
+```
+
+### Width and Height
+These functions set the width and height of your sprite
+```
+player.setWidth(100); // Set the width and height of the sprite
+player.setHeight(50);
+```
+You can also use changeWidth/Height to increase or decrease the height and width,
+```
+player.changeWidth(5);
+player.changeHeight(10);
+player.changeWidth(-20);
+player.changeHeight(-15);
+```
+
+### Color
+This function changes the color of your sprite
+```
+player.setColor("green");
+```
+
+### Image
+This function changes the image url of your sprite
+```
+player.setImage(image.png);
+```
+
+### Type
+This function changes the type of sprite. (Rectangle or image)
+```
+player.setType("image")
+```
+
+
 
 ## Handle Input
 For these functions you should add handleInput:
@@ -114,6 +168,222 @@ if (sprite1.isTouching(sprite2)) {
 }
 ```
 
+## Data
+
+### Sprite Info
+This function gets a sprite's information and outputs it into the console,
+```
+player.spriteInfo();
+```
+Output:
+```
+Sprite {x: 50, y: 300, width: 100, height: 100, type: "rectangle"…}
+x: 50
+y: 300
+width: 100
+height: 100
+type: "rectangle"
+color: "green"
+src: ""
+<constructor>: "Sprite"
+name: "Sprite"
+```
+
+### Canvas Info
+This function gets the canvas's information and outputs it into the console,
+```
+canvas.info();
+```
+Output:
+<details>
+  <summary>Canvas Data (long)</summary>
+<code>
+Canvas {canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, sprites: Array(1), keys: Object, constructor: Object}
+canvas: 
+<canvas id="canvas" width="600" height="400" border="1"></canvas>
+ctx: CanvasRenderingContext2D
+canvas: 
+<canvas id="canvas" width="600" height="400" border="1"></canvas>
+globalAlpha: 1
+globalCompositeOperation: "source-over"
+filter: "none"
+imageSmoothingEnabled: true
+imageSmoothingQuality: "low"
+strokeStyle: "#000000"
+fillStyle: "#000000"
+shadowOffsetX: 0
+shadowOffsetY: 0
+shadowBlur: 0
+shadowColor: "rgba(0, 0, 0, 0)"
+lineWidth: 1
+lineCap: "butt"
+lineJoin: "miter"
+miterLimit: 10
+lineDashOffset: 0
+font: "10px sans-serif"
+textAlign: "start"
+textBaseline: "alphabetic"
+direction: "ltr"
+fontKerning: "auto"
+fontStretch: "normal"
+fontVariantCaps: "normal"
+letterSpacing: "0px"
+textRendering: "auto"
+wordSpacing: "0px"
+clip: ƒ clip() {}
+<constructor>: "Function"
+name: "Function"
+createConicGradient: ƒ createConicGradient() {}
+<constructor>: "Function"
+name: "Function"
+createImageData: ƒ createImageData() {}
+<constructor>: "Function"
+name: "Function"
+createLinearGradient: ƒ createLinearGradient() {}
+<constructor>: "Function"
+name: "Function"
+createPattern: ƒ createPattern() {}
+<constructor>: "Function"
+name: "Function"
+createRadialGradient: ƒ createRadialGradient() {}
+<constructor>: "Function"
+name: "Function"
+drawFocusIfNeeded: ƒ drawFocusIfNeeded() {}
+<constructor>: "Function"
+name: "Function"
+drawImage: ƒ drawImage() {}
+<constructor>: "Function"
+name: "Function"
+fill: ƒ fill() {}
+<constructor>: "Function"
+name: "Function"
+fillText: ƒ fillText() {}
+<constructor>: "Function"
+name: "Function"
+getContextAttributes: ƒ getContextAttributes() {}
+<constructor>: "Function"
+name: "Function"
+getImageData: ƒ getImageData() {}
+<constructor>: "Function"
+name: "Function"
+getLineDash: ƒ getLineDash() {}
+<constructor>: "Function"
+name: "Function"
+getTransform: ƒ getTransform() {}
+<constructor>: "Function"
+name: "Function"
+isContextLost: ƒ isContextLost() {}
+<constructor>: "Function"
+name: "Function"
+isPointInPath: ƒ isPointInPath() {}
+<constructor>: "Function"
+name: "Function"
+isPointInStroke: ƒ isPointInStroke() {}
+<constructor>: "Function"
+name: "Function"
+measureText: ƒ measureText() {}
+<constructor>: "Function"
+name: "Function"
+putImageData: ƒ putImageData() {}
+<constructor>: "Function"
+name: "Function"
+reset: ƒ reset() {}
+<constructor>: "Function"
+name: "Function"
+roundRect: ƒ roundRect() {}
+<constructor>: "Function"
+name: "Function"
+save: ƒ save() {}
+<constructor>: "Function"
+name: "Function"
+scale: ƒ scale() {}
+<constructor>: "Function"
+name: "Function"
+setLineDash: ƒ setLineDash() {}
+<constructor>: "Function"
+name: "Function"
+setTransform: ƒ setTransform() {}
+<constructor>: "Function"
+name: "Function"
+stroke: ƒ stroke() {}
+<constructor>: "Function"
+name: "Function"
+strokeText: ƒ strokeText() {}
+<constructor>: "Function"
+name: "Function"
+transform: ƒ transform() {}
+<constructor>: "Function"
+name: "Function"
+translate: ƒ translate() {}
+<constructor>: "Function"
+name: "Function"
+arc: ƒ arc() {}
+<constructor>: "Function"
+name: "Function"
+arcTo: ƒ arcTo() {}
+<constructor>: "Function"
+name: "Function"
+beginPath: ƒ beginPath() {}
+<constructor>: "Function"
+name: "Function"
+bezierCurveTo: ƒ bezierCurveTo() {}
+<constructor>: "Function"
+name: "Function"
+clearRect: ƒ clearRect() {}
+<constructor>: "Function"
+name: "Function"
+closePath: ƒ closePath() {}
+<constructor>: "Function"
+name: "Function"
+ellipse: ƒ ellipse() {}
+<constructor>: "Function"
+name: "Function"
+fillRect: ƒ fillRect() {}
+<constructor>: "Function"
+name: "Function"
+lineTo: ƒ lineTo() {}
+<constructor>: "Function"
+name: "Function"
+moveTo: ƒ moveTo() {}
+<constructor>: "Function"
+name: "Function"
+quadraticCurveTo: ƒ quadraticCurveTo() {}
+<constructor>: "Function"
+name: "Function"
+rect: ƒ rect() {}
+<constructor>: "Function"
+name: "Function"
+resetTransform: ƒ resetTransform() {}
+<constructor>: "Function"
+name: "Function"
+restore: ƒ restore() {}
+<constructor>: "Function"
+name: "Function"
+rotate: ƒ rotate() {}
+<constructor>: "Function"
+name: "Function"
+strokeRect: ƒ strokeRect() {}
+<constructor>: "Function"
+name: "Function"
+<constructor>: "CanvasRenderingContext2D"
+name: "CanvasRenderingContext2D"
+sprites: Array(1)
+0: Sprite
+x: 50
+y: 300
+width: 100
+height: 100
+type: "rectangle"
+color: "green"
+src: ""
+<constructor>: "Sprite"
+name: "Sprite"
+keys: Object
+<constructor>: "Canvas"
+name: "Canvas"
+  </code>
+  </details>
+  
 # Examples
 ## Infinite Runner Game Example,
 ```
