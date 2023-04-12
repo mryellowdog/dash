@@ -1,6 +1,8 @@
 // General Functions and variables
 var fps = 60;
 var turbo = 10000000;
+//
+var pause = false;
 
 function getFps() {
   if (fps == 10000000) {
@@ -12,6 +14,13 @@ function getFps() {
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function pause() {
+  freeze = true;
+}
+function unpause() {
+  freeze = false;
 }
 
 class Sprite {
@@ -66,19 +75,21 @@ class Sprite {
   decreaseY(ly) {
     this.y += ly;
   }
-
+// CSS does not work on canvas :(
   /*
   rotate(degrees) {
     this.style.transform = 'rotate('+degrees+'deg)'; // Uses CSS to rotate
   }*/
 
   //looks:
+  /* 
   hide() {
     this.style.visibility = "hidden";
   }
   show() {
     this.style.visibility = "visible";
   }
+  */
   setSize(size) {
     this.width = size;
     this.height = size;
@@ -173,10 +184,12 @@ class Canvas {
     console.log("Initiated Dash");
     console.log("Dash 0.2 / © Mryellowdog 2023");
     setInterval(() => {
+      if(pause == false){
       this.forever();
       this.handleInput();
       this.checkCollisions();
       this.draw();
+      }
     }, 1000 / fps); // 60 is FPS
   }
 
