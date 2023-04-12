@@ -14,7 +14,7 @@ Creator retains all right, title, and interest in and to the Library, including 
 
 ## 3. Restrictions
 
-Licensee shall not sell or distribute the Library, in whole or in part, to any third party. Licensee shall not claim to be the creator of the Library. Licensee shall not remove or obscure any proprietary notices or labels on the Library.
+Licensee shall not sell the Library, in whole or in part, to any third party. Licensee shall not claim to be the creator of the Library. Licensee shall not remove or obscure any proprietary notices or labels on the Library. 
 
 ## 4. Modification
 
