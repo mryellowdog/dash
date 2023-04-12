@@ -17,10 +17,10 @@ function random(min, max) {
 }
 
 function pause() {
-  freeze = true;
+  pause = true;
 }
 function unpause() {
-  freeze = false;
+  pause = false;
 }
 
 class Sprite {
