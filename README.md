@@ -48,9 +48,6 @@ canvas.forever = function () {
 canvas.handleInput = function () {
    // Do something...
 };
-canvas.checkCollisions = function () {
-   // Do something...
-};
 ```
 All of the loops do the same thing, I just provided specific ones for certain scripts to make it easier to organize.
 
@@ -82,6 +79,19 @@ This function creates a random number between two integers,
 random(1, 10);
 ```
 
+### Pause
+These functions pauses screen refresh and forever loops.
+```
+pause();
+unpause();
+```
+This function only pauses screen refresh, forever loops, and collision checking. You can use pause with other scripts like this,
+```
+if(pause == false){
+// your scripts here.
+}
+```
+
 ## Moving Sprites
 
 ### Set X/Y
@@ -109,13 +119,6 @@ You can also still use increaseX/Y() or decreaseX/Y(), but I changed it to chang
 ## Editing Sprites
 
 Note: If you only want to set the looks of the sprite once, it might be easier to set it while creating and defining the sprite. See more in 'Adding Sprites'
-
-### Hide/Show
-This function allows you to hide or show the sprite:
-```
-player.hide();
-player.show();
-```
 
 ### Size
 This function sets the size of your sprite (works best on squares)
