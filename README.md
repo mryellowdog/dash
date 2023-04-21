@@ -426,7 +426,7 @@ fps = 60;
 You can set it to any number. 60 is the default and is what I typically reccomend, but feel free to change it to whatever is best for your project.
 You can also use 'turbo'. This setting makes the project run as fast as possible, limiting screen refresh and making calculations as fast as possible.
 ```
-turbo = true;
+fps = turbo;
 ```
 Make sure to not set Turbo and FPS in the same script or else they will cancel out.
 
