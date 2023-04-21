@@ -1,3 +1,6 @@
+// Dash 0.2.1
+// https://github.com/mryellowdog/dash/
+
 // General Functions and variables
 var fps = 60;
 var turbo = 10000000;
@@ -52,6 +55,11 @@ class Sprite {
     this.y += dy;
   }
 
+  goto(xcoor, ycoor){
+    this.x = xcoor;
+    this.y = ycoor;
+  }
+  
   setX(x) {
     this.x = x;
   }
