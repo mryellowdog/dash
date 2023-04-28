@@ -26,6 +26,15 @@ function unpause() {
   pause = false;
 }
 
+function getMousePos(event) {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+}
+
+function printMousePos() {
+  console.log("X:" + mouseX, "Y:" + mouseY);
+}
+
 class Sprite {
   constructor(x, y, width, height, type, color, src) {
     this.x = x;
@@ -35,6 +44,7 @@ class Sprite {
     this.type = type;
     this.color = color;
     this.src = src;
+    this.visible = true;
   }
 
   draw(ctx) {
@@ -83,21 +93,15 @@ class Sprite {
   decreaseY(ly) {
     this.y += ly;
   }
-// CSS does not work on canvas :(
-  /*
-  rotate(degrees) {
-    this.style.transform = 'rotate('+degrees+'deg)'; // Uses CSS to rotate
-  }*/
-
-  //looks:
-  /* 
+  
+  // looks:
   hide() {
-    this.style.visibility = "hidden";
+    this.visible = false;
   }
   show() {
-    this.style.visibility = "visible";
+    this.visible = true;
   }
-  */
+  
   setSize(size) {
     this.width = size;
     this.height = size;
@@ -134,6 +138,22 @@ class Sprite {
     const yOverlap =
       this.y + this.height >= sprite.y && this.y <= sprite.y + sprite.height;
     return xOverlap && yOverlap;
+  }
+  
+  isClicked() {
+    if (
+      mouseX > this.x - this.width &&
+      mouseX < this.x + this.width &&
+      mouseY > this.y - this.height &&
+      mouseY < this.y + this.height
+      // Check for sprite and cursor overlap
+    ) {
+      mouseX = null;
+      mouseY = null;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   spriteInfo() {
