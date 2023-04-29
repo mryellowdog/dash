@@ -89,7 +89,7 @@ unpause();
 ```
 This function only pauses screen refresh, forever loops, and collision checking. You can use pause with other scripts like this,
 ```
-if(pause == false){
+if(freeze == false){
 // your scripts here.
 }
 ```
@@ -172,12 +172,30 @@ This function changes the type of sprite. (Rectangle or image)
 player.setType("image")
 ```
 
+## Editing Backdrops
+These functions allow you to edit the looks of the backdrop.
 
+### Color
+This function sets the color of your backdrop,
+```
+setBackdropColor("green");
+```
+
+### Image
+This function allows you to set the backdrop to an image,
+```
+setBackdropImage("image.png");
+```
 
 ## Input
 
 ### Mouse
 These functions allow you to track the mouse position and also if a certain sprite is clicked.
+In order to detect mouse events, you must have the following in your canvas element in HTML:
+```
+onmousemove="getMousePos(event)"
+onclick="detectClicks(event)"
+```
 
 To detect if a sprite is clicked:
 ```
@@ -192,6 +210,15 @@ if (player.isTouchingCursor()) {
    // Do something
 }
 ```
+You can also use the "mouseX" and "mouseY" variables to get the mouse location, for example:
+```
+player.goto(mouseX, mouseY); // Go to the mouse cursor
+```
+And also the "clickX" and "clickY" variables to get the location of where the mouse last clicked,
+```
+player.goto(clickX, clickY); // Go to the mouse cursor when it clicks
+```
+
 ### Keyboard
 This function detects when the user presses certain keys on the keyboard
 ```
@@ -440,6 +467,16 @@ Output:
 60 
 ```
 Note: This is the desired FPS already set. This does not reflect how the computer is actually processing the scripts.
+   
+### Mouse Position
+This function outputs the approximate position of the mouse cursor,
+```
+printMousePos();
+```
+Output:
+```
+X:0 Y:0
+```
 
 ## Settings
 
@@ -454,6 +491,16 @@ You can also use 'turbo'. This setting makes the project run as fast as possible
 fps = turbo;
 ```
 Make sure to not set Turbo and FPS in the same script or else they will cancel out.
+   
+### Mouse Cursor
+You can edit the mouse cursor as you would a sprite. Examples:
+```
+pointer.setImage("image.png"); // Set the cursor to a different image
+pointer.setSize(50); // Increase the cursor's size
+pointer.hide(); // Hide the cursor
+// Etc.
+   
+```
 
 # Examples
 ## Infinite Runner Game Example,
