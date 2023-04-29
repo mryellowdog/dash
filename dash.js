@@ -5,13 +5,15 @@
 var fps = 60;
 var turbo = 10000000;
 //
-var pause = false;
+var freeze = false;
 
 let mouseX = null;
 let mouseY = null;
 
 let clickX = null;
 let clickY = null;
+
+document.write("<style>canvas{cursor: none;}</style>"); // Remove the cursor
 
 function getFps() {
   if (fps == 10000000) {
@@ -26,23 +28,35 @@ function random(min, max) {
 }
 
 function pause() {
-  pause = true;
+  freeze = true;
 }
 function unpause() {
-  pause = false;
+  freeze = false;
 }
 
 function getMousePos(event) {
-  mouseX = event.clientX;
-  mouseY = event.clientY;
+  mouseX = event.clientX + -10;
+  mouseY = event.clientY + -15; // I added some extra X and Y to prevent too much offset
 }
 function detectClicks(event) {
-  clickX = event.clientX;
-  clickY = event.clientY;
+  clickX = event.clientX + -10;
+  clickY = event.clientY + -15;
 }
 
 function printMousePos() {
   console.log("X:" + mouseX, "Y:" + mouseY);
+}
+
+function setBackdropImage(backdrop) {
+  document.write(
+    "<style>canvas{background-image:url('" + backdrop + "');}</style>"
+  );
+}
+
+function setBackdropColor(backdropcolor) {
+  document.write(
+    "<style>canvas{background-color:" + backdropcolor + ";}</style>"
+  );
 }
 
 class Sprite {
@@ -235,14 +249,26 @@ class Canvas {
   }
 
   start() {
+    const pointer = new Sprite(
+      50,
+      300,
+      32,
+      32,
+      "image",
+      "blue",
+      "https://i.ibb.co/hM2XWj4/cur970.png"
+    );
+    canvas.addSprite(pointer);
+    // Create a custom cursor
     console.log("Initiated Dash");
     console.log("Dash 0.2 / © Mryellowdog 2023");
     setInterval(() => {
-      if (pause == false) {
+      if (freeze == false) {
         this.forever();
         this.handleInput();
         this.checkCollisions();
         this.draw();
+        pointer.goto(mouseX, mouseY);
       }
     }, 1000 / fps); // 60 is FPS
   }
