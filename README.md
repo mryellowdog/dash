@@ -16,9 +16,9 @@ This library is far from done and still might have bugs and incomplete stuff. An
 
 In Dash, we usually use a canvas element to put our game inside of, you can do this, like this
 ```
-<canvas id="canvas" width="600" height="400" onclick="getMousePos()"></canvas>
+<canvas id="canvas" width="600" height="400" onmousemove="getMousePos(event)" onclick="detectClicks(event)"></canvas>
 ```
-Make sure to add ```onclick="getMousePos()"``` so you can add click events.
+Make sure to add ```onmousemove="getMousePos()"``` and ```onclick="detectClicks(event)"``` so you can add click events.
 
 Then, define the canvas inside Javascript,
 ```
@@ -178,17 +178,19 @@ player.setType("image")
 
 ### Mouse
 These functions allow you to track the mouse position and also if a certain sprite is clicked.
-To track the mouse position simply use:
-```
-canvas.forever = function () {
-   getMousePos();
-};
-```
-You can also detect if a sprite is clicked:
+
+To detect if a sprite is clicked:
 ```
   if (player.isClicked()) {
     // Do something
   }
+```
+
+To detect if a sprite is touching the mouse cursor:
+```
+if (player.isTouchingCursor()) {
+   // Do something
+}
 ```
 ### Keyboard
 This function detects when the user presses certain keys on the keyboard
