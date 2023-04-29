@@ -80,7 +80,14 @@ class Sprite {
       this.image.src = this.src;
       this.image.width = this.width;
       this.image.height = this.height;
-      ctx.drawImage(this.image, this.x, this.y);
+      // Added image height/ width
+      ctx.drawImage(
+        this.image,
+        this.x,
+        this.y,
+        this.image.width,
+        this.image.height
+      );
     }
   }
 
