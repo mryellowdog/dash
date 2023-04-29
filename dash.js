@@ -1,4 +1,4 @@
-// Dash 0.2.1
+// Dash 0.2.2
 // https://github.com/mryellowdog/dash/
 
 // General Functions and variables
@@ -6,6 +6,12 @@ var fps = 60;
 var turbo = 10000000;
 //
 var pause = false;
+
+let mouseX = null;
+let mouseY = null;
+
+let clickX = null;
+let clickY = null;
 
 function getFps() {
   if (fps == 10000000) {
@@ -29,6 +35,10 @@ function unpause() {
 function getMousePos(event) {
   mouseX = event.clientX;
   mouseY = event.clientY;
+}
+function detectClicks(event) {
+  clickX = event.clientX;
+  clickY = event.clientY;
 }
 
 function printMousePos() {
@@ -65,11 +75,11 @@ class Sprite {
     this.y += dy;
   }
 
-  goto(xcoor, ycoor){
+  goto(xcoor, ycoor) {
     this.x = xcoor;
     this.y = ycoor;
   }
-  
+
   setX(x) {
     this.x = x;
   }
@@ -93,7 +103,7 @@ class Sprite {
   decreaseY(ly) {
     this.y += ly;
   }
-  
+
   // looks:
   hide() {
     this.visible = false;
@@ -101,7 +111,7 @@ class Sprite {
   show() {
     this.visible = true;
   }
-  
+
   setSize(size) {
     this.width = size;
     this.height = size;
@@ -139,8 +149,24 @@ class Sprite {
       this.y + this.height >= sprite.y && this.y <= sprite.y + sprite.height;
     return xOverlap && yOverlap;
   }
-  
+
   isClicked() {
+    if (
+      clickX > this.x - this.width &&
+      clickX < this.x + this.width &&
+      clickY > this.y - this.height &&
+      clickY < this.y + this.height
+      // Check for sprite and cursor overlap
+    ) {
+      clickX = null;
+      clickY = null;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isTouchingCursor() {
     if (
       mouseX > this.x - this.width &&
       mouseX < this.x + this.width &&
@@ -212,11 +238,11 @@ class Canvas {
     console.log("Initiated Dash");
     console.log("Dash 0.2 / © Mryellowdog 2023");
     setInterval(() => {
-      if(pause == false){
-      this.forever();
-      this.handleInput();
-      this.checkCollisions();
-      this.draw();
+      if (pause == false) {
+        this.forever();
+        this.handleInput();
+        this.checkCollisions();
+        this.draw();
       }
     }, 1000 / fps); // 60 is FPS
   }
