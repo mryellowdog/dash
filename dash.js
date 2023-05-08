@@ -1,4 +1,4 @@
-// Dash 0.2.2
+// Dash 0.3.0
 // https://github.com/mryellowdog/dash/
 
 // General Functions and variables
@@ -13,6 +13,9 @@ let mouseY = null;
 let clickX = null;
 let clickY = null;
 
+document.write(
+  "<canvas id='canvas' width='600' height='400' onmousemove='getMousePos(event)' onclick='detectClicks(event)'></canvas>"
+); // Add the canvas to the screen
 document.write("<style>canvas{cursor: none;}</style>"); // Remove the cursor
 
 function getFps() {
@@ -72,25 +75,31 @@ class Sprite {
   }
 
   draw(ctx) {
-    if (this.type === "rectangle") {
-      ctx.fillStyle = this.color;
-      ctx.fillRect(this.x, this.y, this.width, this.height);
+    if (this.visible == false) {
+      return;
     } else {
-      this.image = new Image();
-      this.image.src = this.src;
-      this.image.width = this.width;
-      this.image.height = this.height;
-      // Added image height/ width
-      ctx.drawImage(
-        this.image,
-        this.x,
-        this.y,
-        this.image.width,
-        this.image.height
-      );
+      if (this.type === "rectangle") {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+      } else if (this.type === "image") {
+        this.image = new Image();
+        this.image.src = this.src;
+        this.image.width = this.width;
+        this.image.height = this.height;
+        // Added image height/ width
+        ctx.drawImage(
+          this.image,
+          this.x,
+          this.y,
+          this.image.width,
+          this.image.height
+        );
+      } else if (this.type === "text") {
+        ctx.font = this.width + "px Arial";
+        ctx.fillText(this.src, this.x, this.y);
+      }
     }
   }
-
   move(dx, dy) {
     this.x += dx;
     this.y += dy;
@@ -113,6 +122,13 @@ class Sprite {
     this.x += dx;
   }
 
+  changeX(changeX) {
+    this.x += changeX;
+  }
+  changeY(changeY) {
+    this.y += changeY;
+  }
+
   increaseY(dy) {
     this.y += dy;
   }
@@ -126,6 +142,11 @@ class Sprite {
   }
 
   // looks:
+  setText(thetext) {
+    // for text only
+    this.src = thetext;
+  }
+
   hide() {
     this.visible = false;
   }
@@ -206,6 +227,17 @@ class Sprite {
   spriteInfo() {
     console.log(this);
   }
+
+  isTouchingColor(colortotouch) {
+    for (let v = 0; v < canvas.sprites.length; v++) {
+      for (let c = v + 1; c < canvas.sprites.length; c++) {
+        const sprite1 = canvas.sprites[c];
+        if (this.isTouching(sprite1) && sprite1.color === colortotouch) {
+          return true;
+        }
+      }
+    }
+  }
 }
 //onClick(sprite){
 //  if (event.clientX = sprite.x){
@@ -268,7 +300,7 @@ class Canvas {
     canvas.addSprite(pointer);
     // Create a custom cursor
     console.log("Initiated Dash");
-    console.log("Dash 0.2 / © Mryellowdog 2023");
+    console.log("Dash 0.3 / © Mryellowdog 2023");
     setInterval(() => {
       if (freeze == false) {
         this.forever();
