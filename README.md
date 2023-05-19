@@ -1,10 +1,12 @@
 # dash
 A simple JavaScript library for making 2D games
 
+We all love making games, but lets face it, it's not the most readable, or easy to write. That's why we created Dash! An opensource, canvas based, JavaScript library for 2D Games
+
 # Note
 This library is far from done and still might have bugs and incomplete stuff. And it probably can't be used to create anything super advanced yet. I will probably try to finish this if I get the time, but feel free to modify code or create a pull request as you like.
 
-# Setting up Dash 0.2
+# Setting up Dash 0.3
 
 1. Download the file, or use the cdn
 
@@ -14,13 +16,7 @@ This library is far from done and still might have bugs and incomplete stuff. An
 
 2. Initializing Dash
 
-In Dash, we usually use a canvas element to put our game inside of, you can do this, like this
-```
-<canvas id="canvas" width="600" height="400" onmousemove="getMousePos(event)" onclick="detectClicks(event)"></canvas>
-```
-Make sure to add ```onmousemove="getMousePos()"``` and ```onclick="detectClicks(event)"``` so you can add click events.
-
-Then, define the canvas inside Javascript,
+First, define the game's screen inside Javascript,
 ```
 const canvas = new Canvas("canvas", 600, 400);
 ```
@@ -30,7 +26,6 @@ canvas.start();
 ```
 ## Example:
 ```
-<canvas id="canvas" width="600" height="400" onclick="getMousePos()"></canvas>
 <script src="dash.js"></script>
 <script>
 const canvas = new Canvas("canvas", 600, 400);
@@ -63,7 +58,7 @@ const player = new Sprite(0, 0, 50, 50, "image", "blue", "image.png"); // Create
 ```
 Make your own using this format,
 ```
-const InsertName = new Sprite(X pos, Y pos, width, height, type (rectangle or image), color (if applicable), image url (if applicable));
+const InsertName = new Sprite(X pos, Y pos, width, height, type (rectangle, image, or text), color (if applicable), image url (if applicable));
 ```
 
 Next, add all the sprites using canvas.addSprite()
@@ -121,6 +116,12 @@ You can also still use increaseX/Y() or decreaseX/Y(), but I changed it to chang
 ## Editing Sprites
 
 Note: If you only want to set the looks of the sprite once, it might be easier to set it while creating and defining the sprite. See more in 'Adding Sprites'
+
+### Text
+For text sprites, you can set the text using this function,
+```
+textLabel.setText("hello world!");
+```
 
 ### Size
 This function sets the size of your sprite (works best on squares)
@@ -238,6 +239,14 @@ This function detects if one sprite collides with another.
 ```
 if (sprite1.isTouching(sprite2)) {
   // Do something...
+}
+```
+
+### Color Collisions
+This function detects when a sprite touches a sprite with a specific color.
+```
+if (player.isTouchingColor("green")){
+   // Do something...
 }
 ```
 
