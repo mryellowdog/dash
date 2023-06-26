@@ -3,15 +3,22 @@ A simple JavaScript library for making 2D games
 
 We all love making games, but lets face it, it's not the most readable, or easy to write. That's why we created Dash! An opensource, canvas based, JavaScript library for 2D Games
 
-# Note
+# Notes
 This library is far from done and still might have bugs and incomplete stuff. And it probably can't be used to create anything super advanced yet. I will probably try to finish this if I get the time, but feel free to modify code or create a pull request as you like.
 
-# Setting up Dash 0.3
+Also, if anybody has a name other than Dash, please tell me, as Dash is a pretty popular name
+
+# Helpful links
+https://github.com/mryellowdog/dash-gamejs-site
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/yellowdog)
+
+# Setting up Dash 1.0
 
 1. Download the file, or use the cdn
 
 ```
-<script src="https://dashjs.netlify.app/dash.js"></script>
+<script src="https://dashjs.netlify.app/dash.min.js"></script>
 ```
 
 2. Initializing Dash
@@ -512,155 +519,100 @@ pointer.hide(); // Hide the cursor
 ```
 
 # Examples
-## Infinite Runner Game Example,
+## Flappy Bird Example
 ```
-<button onclick="canvas.start();">START GAME</button>
-    <h2 id="status">Dodging Game</h2>
-    <canvas id="canvas" width="600" height="400" border="1"></canvas>
-    <script src="dash.js"></script>
-    <script>
-      const canvas = new Canvas("canvas", 600, 400);
-      const player = new Sprite(50, 150, 50, 50, "image", "blue", "bird.png");
-      const enemy = new Sprite(550, Math.random() * 350, 50, 50, "image", "red", "storm.png");
-      canvas.addSprite(player);
-      canvas.addSprite(enemy);
+const canvas = new Canvas("canvas", 600, 400);
+const bird = new Sprite(
+  0,
+  0,
+  50,
+  50,
+  "image",
+  "blue",
+  "https://publicdomainvectors.org/tn_img/frame-1m.webp"
+);
+const button = new Sprite(
+  300,
+  300,
+  100,
+  100,
+  "image",
+  "green",
+  "https://pngimg.com/d/buttons_PNG148.png"
+);
+const obstacle = new Sprite(500, 0, 50, 50, "rectangle", "green", "");
+const score = new Sprite(30, 50, 25, 50, "text", "blue", "");
+const highscore = new Sprite(350, 50, 25, 50, "text", "blue", "");
+const label = new Sprite(315, 350, 25, 50, "text", "blue", "");
+const gameover = new Sprite(200, 200, 40, 50, "text", "black", "");
+const playbutton = new Sprite(
+  200,
+  100,
+  100,
+  50,
+  "image",
+  "blue",
+  "https://games.shelfstuff.com/spot-the-difference/Assets/game0/playAgainButton2x.png"
+);
+canvas.addSprite(bird);
+canvas.addSprite(obstacle);
+canvas.addSprite(score);
+canvas.addSprite(highscore);
+canvas.addSprite(button);
+canvas.addSprite(label);
+canvas.addSprite(gameover);
+score.setText("Score: 0");
+label.setText("Jump");
+console.log(canvas.sprites);
+var points = 0;
+var stopped = false;
+var counter = null;
 
-      canvas.handleInput = function () {
-        if (canvas.isKeyDown("ArrowUp")) {
-          player.increaseY(-5);
-        }
-        if (canvas.isKeyDown("ArrowDown")) {
-          player.increaseY(5);
-        }
-        if (player.isTouching(enemy)) {
-          window.location.reload();
-        }
-      };
-      setInterval(() => {
-        enemy.increaseX(-15);
-        if (enemy.x < -50) {
-          enemy.setX(600);
-          enemy.setY(Math.random() * 350);
-        }
-      }, 1000 / 60);
-    </script>
-```
-## Catching Game Example,
-```
-<p>Score:</p>
-    <p id="scoreText">0</p>
-    <p>Time:</p>
-    <p id="timerText">60</p>
-    <h2 id="status">Catching Game</h2>
-    <canvas id="canvas" width="600" height="400" border="1"></canvas>
-    <script src="dash.js"></script>
-    <script>
-      var score = 0;
-      var timer = 60;
-      const canvas = new Canvas("canvas", 600, 400);
-      const player = new Sprite(50, 300, 50, 50, "image", "blue", "farmer.png");
-      const food = new Sprite(Math.random() * 350, 50, 50, 50, "image", "red", "apple.png");
+setBackdropColor("lightblue");
+canvas.forever = function () {
+  highscore.setText("Highscore: " + localStorage.getItem("highscore"));
 
-      canvas.addSprite(player);
-      canvas.addSprite(food);
-
-      canvas.handleInput = function () {
-        if (canvas.isKeyDown("ArrowRight")) {
-          player.increaseX(5);
-        }
-        if (canvas.isKeyDown("ArrowLeft")) {
-          player.increaseX(-5);
-        }
-        if (player.isTouching(food)) {
-          //alert("Game Over!");
-          food.setY(50);
-          food.setX(Math.random() * 350);
-          score += 1;
-          document.getElementById("scoreText").innerHTML = score;
-        }
-      };
-
-      canvas.start();
-
-      setInterval(() => {
-        food.increaseY(5);
-        if (food.y > 300) {
-          food.setY(50);
-          food.setX(Math.random() * 350);
-        }
-      }, 1000 / 60);
-
-      setInterval(() => {
-        timer -= 1;
-        document.getElementById("timerText").innerHTML = timer;
-        if (timer < 1) {
-          timer = 60;
-          alert("Game over! Good job, you got " + score + " points!");
-          location.reload();
-        }
-      }, 1000);
-    </script>
-```
-
-## Flappy Bird Full Game,
-```
-<h2 id="score"></h2>
-<h3 id="highscore" class="highscore">Highscore: </h3>
-<img src="menu.gif" id="menu" onclick="startgame()"></img>
-<canvas id="canvas" width="600" height="400" class="canvas"></canvas>
-<script src="dash.js"></script>
-
-<script>
-  document.getElementById("highscore").innerHTML = "Highscore: " + localStorage.getItem("best");
-  //
-function startgame(){
-document.getElementById("menu").remove();
-document.getElementById("highscore").remove();
-
-  var score = 0;
-  
-  const canvas = new Canvas("canvas", 600, 400);
-  const player = new Sprite(50, 200, 48, 48, "image", "blue", "https://apkfree.com/apk/0/16/icons/686.png");
-  const obstacle = new Sprite(500, 50, 50, 50, "rectangle", "green", "");
-  canvas.addSprite(player);
-  canvas.addSprite(obstacle);
-
-  canvas.handleInput = function () {
-    if (canvas.isKeyDown("ArrowUp")) {
-      player.increaseY(-2);
-    } else {
-      player.increaseY(2);
-    }
-
-    if (player.isTouching(obstacle)) {
-      location.reload();
-    }
-  };
-
-  setInterval(() => {
-    obstacle.increaseX(-10);
-    if (obstacle.x < -50) {
-      score += 1;
-      document.getElementById("score").innerHTML = score;
-      if (localStorage.getItem("best") < score){
-      localStorage.setItem("best", score);
+  bird.changeY(1);
+  obstacle.changeX(-3);
+  if (obstacle.x < 0) {
+    obstacle.setX(500);
+    obstacle.setY(random(0, 350));
+    obstacle.setHeight(random(20, 200));
+    if (stopped == false) {
+      points += 1;
+      score.setText("Score: " + points);
+      if (points > localStorage.getItem("highscore")) {
+        localStorage.setItem("highscore", points);
       }
-      obstacle.setX(600);
-      obstacle.setY(Math.random() * 350);
-      obstacle.height = Math.random() * 200;
     }
-  }, 1000 / 60);
-  canvas.start();
-}
-</script>
-<style>
-.highscore {
-  background-color: black;
-  color: white;
-  max-width: 600;
-}
+  }
+  if (bird.y < 0) {
+    bird.setY(0);
+  }
 
-  </style>
+  if (bird.y > 350) {
+    bird.setY(350);
+  }
+};
+
+canvas.handleInput = function () {
+  if (bird.isTouchingColor("green")) {
+    bird.hide();
+    stopped = true;
+    gameover.setText("Game over");
+    canvas.addSprite(playbutton);
+  }
+
+  if (button.isClicked()) {
+    bird.changeY(-20);
+  }
+
+  if (playbutton.isClicked()) {
+    window.location.reload();
+  }
+};
+
+canvas.start();
 
 ```
 
